@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct {
+    int rollno;
+    char name[100]; 
+} Member;
+int main() {
+    Member *member1 = (Member *)malloc(sizeof(Member));
+    Member *member2 = (Member *)malloc(sizeof(Member));
+    if (member1 == NULL || member2 == NULL) {
+        printf("Memory allocation failed!\n");
+        return 1;
+    }
+    printf("Enter roll number for member 1: ");
+    scanf("%d", &member1->rollno);
+    printf("Enter name for member 1: ");
+    scanf(" %[^\n]", member1->name); 
+    printf("Enter roll number for member 2: ");
+    scanf("%d", &member2->rollno);
+    printf("Enter name for member 2: ");
+    scanf(" %[^\n]", member2->name); 
+    printf("\nMember 1:\n");
+    printf("Roll Number: %d\n", member1->rollno);
+    printf("Name: %s\n", member1->name);
+    printf("\nMember 2:\n");
+    printf("Roll Number: %d\n", member2->rollno);
+    printf("Name: %s\n", member2->name);
+    free(member1);
+    free(member2);
+
+    return 0;
+}
