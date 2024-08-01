@@ -1,0 +1,46 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Node {
+    int data;
+    struct Node *next;
+} Node;
+void printList(Node *head) {
+    while (head) {
+        printf("%d->", head->data);
+        head = head->next;
+    }
+    printf("NULL\n");
+}
+int main() {
+    Node *head = (Node *)malloc(sizeof(Node));
+    head->data = 55;
+    head->next = (Node *)malloc(sizeof(Node));
+    head->next->data = 77;
+    head->next->next = (Node *)malloc(sizeof(Node));
+    head->next->next->data = 88;
+    head->next->next->next = (Node *)malloc(sizeof(Node));
+    head->next->next->next->data = 99;
+    head->next->next->next->next = (Node *)malloc(sizeof(Node));
+    head->next->next->next->next->data = 22;
+    head->next->next->next->next->next = NULL;
+    printf("Original list:\n");
+    printList(head);
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->data = 101;
+    newNode->next = NULL;
+    Node *temp = head;
+    for (int i = 1; i < 3 && temp != NULL; i++) {
+        temp = temp->next;
+    }
+    newNode->next = temp->next;
+    temp->next = newNode;
+    printf("Updated list:\n");
+    printList(head);
+    Node *current;
+    while (head) {
+        current = head;
+        head = head->next;
+        free(current);
+    }
+    return 0;
+}
