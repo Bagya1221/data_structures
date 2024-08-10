@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+Node* createNode(int data) {
+    Node* newNode = (Node*)malloc(sizeof(Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+int findDifference(Node* head) {
+    if (!head) return 0;
+    int min = INT_MAX, max = INT_MIN;
+    for (Node* current = head; current; current = current->next) {
+        if (current->data < min) min = current->data;
+        if (current->data > max) max = current->data;
+    }
+    return max - min;
+}
+void printList(Node* head) {
+    for (Node* temp = head; temp; temp = temp->next)
+        printf("%d -> ", temp->data);
+    printf("NULL\n");
+}
+void freeList(Node* head) {
+    Node* temp;
+    while (head) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
+}
+
+int main() {
+    // Create the linked list: 56 -> 99 -> 66 -> 22 -> 33 -> NULL
+    Node* head = createNode(56);
+    head->next = createNode(99);
+    head->next->next = createNode(66);
+    head->next->next->next = createNode(22);
+    head->next->next->next->next = createNode(33);
+    printf("Linked List: ");
+    printList(head);
+    printf("Difference = %d\n", findDifference(head));
+    freeList(head);
+    return 0;
+}
