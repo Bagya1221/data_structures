@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+// Node definition for singly linked list
+typedef struct Node {
+    int data;
+    struct Node* next;
+} Node;
+
+// Function to create a new node
+Node* createNode(int data) {
+    Node* node = (Node*)malloc(sizeof(Node));
+    node->data = data;
+    node->next = NULL;
+    return node;
+}
+
+// Function to search for a key in the linked list
+int searchKey(Node* head, int key) {
+    for (Node* current = head; current; current = current->next) {
+        if (current->data == key) return 1; // Key found
+    }
+    return 0; // Key not found
+}
+
+// Function to print the linked list
+void printList(Node* head) {
+    for (Node* temp = head; temp; temp = temp->next)
+        printf("%d -> ", temp->data);
+    printf("NULL\n");
+}
+
+// Main function
+int main() {
+    // Create the linked list: 55 -> 99 -> 66 -> 22 -> NULL
+    Node* head = createNode(55);
+    head->next = createNode(99);
+    head->next->next = createNode(66);
+    head->next->next->next = createNode(22);
+
+    // Print the linked list
+    printList(head);
+
+    // Search for the key 222
+    printf(searchKey(head, 222) ? "Key 222 found\n" : "NOT FOUND\n");
+
+    // Free the linked list
+    while (head) {
+        Node* temp = head;
+        head = head->next;
+        free(temp);
+    }
+
+    return 0;
+}
