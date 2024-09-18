@@ -1,0 +1,27 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main() {
+    char s[] = "tree";
+    int len = strlen(s);
+    for (int i = 0; i < len - 1; i++) {
+        for (int j = i + 1; j < len; j++) {
+            if (s[i] > s[j]) {
+                char temp = s[i];
+                s[i] = s[j];
+                s[j] = temp;
+            }
+        }
+    }
+    printf("Sorted String: %s\n", s);
+    int index = -1;  
+    for (int i = 1; i < len; i++) {
+        if (s[i] == s[i - 1]) {
+            index = i - 1;
+            break;
+        }
+    }
+    printf("Starting Index of First Repeated Character: %d\n", index);
+    
+    return 0;
+}
